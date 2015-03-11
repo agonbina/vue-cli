@@ -1,0 +1,12 @@
+{
+  "name": "vue-cli",
+  "version": "0.1.0",
+  "description": "a CLI utility to scaffold new Vue.js components, mixins, etc",
+  "preferGlobal": true,
+  "dependencies": {
+    "ronin": "0.3.x"
+  },
+  "bin": {
+    "vue": "./bin/vue"
+  }
+}
