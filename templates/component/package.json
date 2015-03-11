@@ -1,0 +1,8 @@
+{
+    "name": "{{ name }}",
+    "private": true,
+    "version": "0.1.0",
+    "description": "{{ description }}",
+    "main": "index.js",
+    "author": "Agon Bina <agon_bina@hotmail.com>"
+}

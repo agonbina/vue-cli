@@ -4,6 +4,13 @@
   "description": "a CLI utility to scaffold new Vue.js components, mixins, etc",
   "preferGlobal": true,
   "dependencies": {
+    "101": "^0.13.0",
+    "colors": "^1.0.3",
+    "gulp": "^3.8.11",
+    "gulp-print": "^1.1.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-template": "^3.0.0",
+    "prompt": "^0.2.14",
     "ronin": "0.3.x"
   },
   "bin": {
