@@ -16,7 +16,15 @@ var Create = Command.extend({
 
     use: ['check-dir', 'git-init'],
 
-    run: function (name) {
+    options: {
+        deps: {
+            type: 'string',
+            alias: 'd',
+            default: ''
+        }
+    },
+
+    run: function (region, name) {
         var data = {
             name: name,
             description: 'A description for this component'
