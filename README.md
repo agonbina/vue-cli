@@ -4,10 +4,7 @@
 npm install -g vue-cli
 ```
 
-### Global options
-* **--deps or -d** A comma separated list of dependencies. Ex: **--deps ui-notifications,ui-names,listview-mixin**
-
-### Create a new component
+## Create a new component
 ```bash
 vue component create [componentName|String]
 ```
@@ -16,21 +13,24 @@ Ex:
 vue component create ui-notifications
 ```
 
-### Extend a component
+## Extend a component
 ```bash
-vue component extend [componentToExtend|String] [newComponent|String]
+vue component create [componentName|String] --extend [componentToExtend|String]
 ```
 Ex:
 ```bash
-vue component extend ui-notifications
+vue component create ui-alerts --extend ui-notifications
 ```
 
-### Create a new mixin
+#### options
+* **--deps or -d** A comma separated list of dependencies. Ex: **--deps ui-notifications,ui-names,listview-mixin**
+
+## Create a new mixin
 ```bash
 vue mixin create [mixinName|String]
 ```
 
-### Global config
+## Global config
 You can create a global or local configuration file for your options in your home, root or current directory, ex ```~/.vuerc```:
 
 ```js

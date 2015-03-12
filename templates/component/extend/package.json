@@ -5,7 +5,7 @@
     "description": "{{ description }}",
     "main": "index.js",
     "dependencies": {
-      "{{ extendComponentName }}": "file:../{{ extendComponentName }}"
+      "{{ extendComponentName }}": "git+ssh://git@gitlab.com:1aim/{{ extendComponentName }}.git"
     },
     "author": "Agon Bina <agon_bina@hotmail.com>"
 }
