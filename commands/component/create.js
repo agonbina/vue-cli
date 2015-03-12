@@ -16,28 +16,26 @@ var Create = Command.extend({
 
     use: ['check-dir', 'git-init'],
 
-    options: {
-        deps: {
-            type: 'string',
-            alias: 'd',
-            default: ''
-        }
-    },
-
-    run: function (region, name) {
+    run: function (name) {
         var data = {
             name: name,
             description: 'A description for this component'
         }
 
-        if (!name) throw new Error('A component name must be specified. vue component create NAME')
+        if (!name) throw new Error('A component name must be specified. \n\tvue component create NAME')
 
         /**
          * Task to copy, interpolate and move the templates to the new directory for this component
          */
 
         gulp.task('templates', function () {
-            return gulp.src(path.join(__dirname, '../../templates/component/**'), {dot: true})
+            var templates = [
+                path.join(__dirname, '../../templates/component/create/**'),
+                path.join(__dirname, '../../templates/component/*'),
+                '!' + path.join(__dirname, '../../templates/component/extend')
+            ]
+
+            return gulp.src(templates, {dot: true})
                 .pipe(template(data, {
                     interpolate: /{{([\s\S]+?)}}/g
                 }))
@@ -53,7 +51,6 @@ var Create = Command.extend({
         gulp.task('all', ['templates'])
         gulp.start('all')
     }
-
 });
 
 module.exports = Create

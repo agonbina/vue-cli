@@ -1,0 +1,11 @@
+{
+    "name": "{{ name }}",
+    "private": true,
+    "version": "0.1.0",
+    "description": "{{ description }}",
+    "main": "index.js",
+    "dependencies": {
+      "{{ extendComponentName }}": "file:../{{ extendComponentName }}"
+    },
+    "author": "Agon Bina <agon_bina@hotmail.com>"
+}
