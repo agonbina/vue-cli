@@ -14,7 +14,7 @@ var Create = Command.extend({
 
     desc: 'Create a new component',
 
-    use: ['checkDir'],
+    use: ['check-dir', 'git-init'],
 
     run: function (name) {
         var data = {
