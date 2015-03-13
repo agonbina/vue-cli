@@ -1,6 +1,7 @@
 
 var path = require('path')
 var git = require('gulp-git')
+var gutil = require('gulp-util')
 var config = require('rc')('vue').git
 
 module.exports = function gitInit (next) {
@@ -15,10 +16,12 @@ module.exports = function gitInit (next) {
                   ? 'git@bitbucket.org'
                   : 'git@github.com'
 
-  repo +=  config.organization + '/' + name + '.git'
+  repo += ':' + config.organization + '/' + name + '.git'
 
   git.addRemote('origin', repo, { cwd: path.join(process.cwd(), name) }, function (err) {
     if(err) throw new Error(err.message)
+
+    gutil.log(gutil.colors.bold.green('Added a remote origin: ' + repo))
     next()
   })
 }

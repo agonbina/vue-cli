@@ -9,7 +9,8 @@ var path = require('path'),
     template = require('gulp-template'),
     rename = require('gulp-rename'),
     print = require('gulp-print'),
-    prettify = require('gulp-jsbeautifier')
+    prettify = require('gulp-jsbeautifier'),
+    install = require('gulp-install')
 
 
 // Helpers
@@ -107,7 +108,7 @@ var Create = Command.extend({
                 }))
         })
 
-        gulp.task('all', ['templates'], function () {
+        gulp.task('prettify', [ 'templates' ], function () {
             var files = path.join(process.cwd(), name) + '/*.{js,json}'
 
             return gulp.src(files)
@@ -118,6 +119,15 @@ var Create = Command.extend({
                     }
                 }))
                 .pipe(gulp.dest(name))
+        })
+
+        gulp.task('all', [ 'prettify' ], function () {
+            var pkgJson = path.join(process.cwd(), name, 'package.json')
+
+            gutil.log(gutil.colors.bold.blue('Installing npm dependencies...'))
+
+            return gulp.src(pkgJson)
+                .pipe(install())
         })
 
         gulp.start('all')
