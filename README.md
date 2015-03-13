@@ -23,7 +23,9 @@ vue component create ui-alerts --extend ui-notifications
 ```
 
 #### options
-* **--deps or -d** A comma separated list of dependencies. Ex: **--deps ui-notifications,ui-names,listview-mixin**
+* **--components** or **-c** A comma separated list of private components for this component. Ex: ```--components ui-notifications,ui-names```
+* **--mixins** or **-m** A comma separated list of mixins this component needs to use. Ex: ```--mixins firebase-mixin,sortable-mixin```
+
 
 ## Create a new mixin
 ```bash
@@ -35,10 +37,10 @@ You can create a global or local configuration file for your options in your hom
 
 ```js
 {
-    "author": "Agon Bina",
-    "email": "agon_bina@hotmail.com",
-    "github": {
-        "username": "agonbina",
+    "author": "Your Name",
+    "email": "youremail@blah.com",
+    "git": {
+        "username": "username",
         "remote": "https://github.com/vueui"
     }
 }

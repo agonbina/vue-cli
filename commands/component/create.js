@@ -5,9 +5,11 @@ var Command = require('ronin').Command,
 
 var path = require('path'),
     gulp = require('gulp'),
+    gutil = require('gulp-util'),
     template = require('gulp-template'),
     rename = require('gulp-rename'),
-    print = require('gulp-print')
+    print = require('gulp-print'),
+    prettify = require('gulp-jsbeautifier')
 
 
 // Helpers
@@ -26,10 +28,18 @@ var Create = Command.extend({
         extend: {
             type: 'string',
             alias: 'e'
+        },
+        mixins: {
+            type: 'string',
+            alias: 'm'
+        },
+        components: {
+            type: 'string',
+            alias: 'c'
         }
     },
 
-    run: function (extendComponentName, name) {
+    run: function (extendComponentName, mixins, components, name) {
         var data = {
                 name: name,
                 description: 'A description for this component'
@@ -37,6 +47,10 @@ var Create = Command.extend({
             templates = []
 
         if (!name) throw new Error('A component name must be specified. \n\tvue component create NAME')
+
+        /**
+         * If we are extending a component we need some different templates
+         */
 
         if(extendComponentName !== undefined) {
             data.extendComponentName = extendComponentName
@@ -50,6 +64,28 @@ var Create = Command.extend({
             templates.push('!' + resolveTemplate('/component/extend'))
         }
 
+
+        /**
+         * Mixin dependencies
+         */
+
+        if(mixins) {
+            data.mixins = mixins.split(',')
+        } else {
+            data.mixins = []
+        }
+
+        /**
+         * Component dependencies
+         */
+
+        if(components) {
+            data.components = components.split(',')
+        } else {
+            data.components = []
+        }
+
+
         /**
          * Task to copy, interpolate and move the templates to the new directory for this component
          */
@@ -59,6 +95,9 @@ var Create = Command.extend({
                 .pipe(template(data, {
                     interpolate: /{{([\s\S]+?)}}/g
                 }))
+                .on('error', function (err) {
+                    gutil.log(err.message)
+                })
                 .pipe(rename(function (path) {
                     if (path.basename === 'module') path.basename = name
                 }))
@@ -68,7 +107,19 @@ var Create = Command.extend({
                 }))
         })
 
-        gulp.task('all', ['templates'])
+        gulp.task('all', ['templates'], function () {
+            var jsFiles = path.join(process.cwd(), name) + '/*.js'
+
+            return gulp.src(jsFiles)
+                .pipe(prettify({
+                    js: {
+                        maxPreserveNewlines: 0,
+                        preserveNewlines: false
+                    }
+                }))
+                .pipe(gulp.dest(name))
+        })
+
         gulp.start('all')
     }
 });
