@@ -79,7 +79,14 @@ var Create = Command.extend({
          */
 
         if(mixins) {
-            data.mixins = mixins.split(',')
+            data.mixins = mixins.split(',').map(function (mixin) {
+                var info = mixin.split('#')
+
+                return {
+                    name: info[0],
+                    version: info[1] || ''
+                }
+            })
         } else {
             data.mixins = []
         }
@@ -89,7 +96,14 @@ var Create = Command.extend({
          */
 
         if(components) {
-            data.components = components.split(',')
+            data.components = components.split(',').map(function (component) {
+                var info = component.split('#')
+
+                return {
+                    name: info[0],
+                    version: info[1] || ''
+                }
+            })
         } else {
             data.components = []
         }
@@ -102,7 +116,22 @@ var Create = Command.extend({
         gulp.task('templates', function () {
             return gulp.src(templates, {dot: true})
                 .pipe(template(data, {
-                    interpolate: /{{([\s\S]+?)}}/g
+                    interpolate: /{{([\s\S]+?)}}/g,
+                    imports: {
+                        itemGitUrl: function (item, git) {
+                            var url = 'git+ssh://git@'
+
+                            url += git.host + '.com:' + git.organization + '/'
+                            url += item.name + '.git'
+
+                            if(item.version) url += '#' + item.version
+
+                            return url
+                        },
+                        notLast: function(index, array) {
+                            return index !== array.length - 1
+                        }
+                    }
                 }))
                 .on('error', function (err) {
                     gutil.log(err.message)

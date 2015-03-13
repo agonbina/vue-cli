@@ -10,13 +10,13 @@
     "dependencies": {
 <% if(components.length !== 0) { %>
     <% _.forEach(components, function(component) { %>
-        "{{ component }}": "git+ssh://git@{{ git.host }}.com:{{ git.organization }}/{{ component }}.git",
+        "{{ component.name }}": "{{ itemGitUrl(component, git) }}",
     <% }); %>
 <% } %>
 
 <% if(mixins.length !== 0) { %>
-    <% _.forEach(mixins, function(mixin) { %>
-        "{{ mixin }}": "git+ssh://git@{{ git.host }}.com:{{ git.organization }}/{{ mixin }}.git",
+    <% _.forEach(mixins, function(mixin, index, array) { %>
+        "{{ mixin.name }}": "{{ itemGitUrl(mixin, git) }}"<% if(notLast(index, array)) { %> {{ print(',') }} <% } %>
     <% }); %>
 <% } %>
     }

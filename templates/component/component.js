@@ -1,7 +1,7 @@
 
 <% if(mixins.length !== 0) { %>
     <% _.forEach(mixins, function (mixin) { %>
-        var {{ _.camelCase(mixin) }} = require('{{ mixin }}')
+        var {{ _.camelCase(mixin.name) }} = require('{{ mixin.name }}')
     <% }) %>
 <% } %>
 
@@ -12,7 +12,7 @@ module.exports = {
 <% if(mixins.length !== 0) { %>
     mixins: [
       <% _.forEach(mixins, function (mixin) { %>
-        {{ _.camelCase(mixin) }},
+        {{ _.camelCase(mixin.name) }},
       <% }) %>
     ],
 <% } %>
@@ -20,7 +20,7 @@ module.exports = {
 <% if(components.length !== 0) { %>
     components: {
     <% _.forEach(components, function(component) { %>
-        '{{ component }}': require('{{ component }}'),
+        '{{ component.name }}': require('{{ component.name }}'),
     <% }); %>
     },
 <% } %>
