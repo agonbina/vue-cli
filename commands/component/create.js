@@ -22,7 +22,7 @@ var Create = Command.extend({
 
     desc: 'Create a new component',
 
-    use: ['check-dir', 'git-init'],
+    use: ['check-dir', 'git-init', 'add-remote'],
 
     options: {
         extend: {
@@ -108,9 +108,9 @@ var Create = Command.extend({
         })
 
         gulp.task('all', ['templates'], function () {
-            var jsFiles = path.join(process.cwd(), name) + '/*.js'
+            var files = path.join(process.cwd(), name) + '/*.{js,json}'
 
-            return gulp.src(jsFiles)
+            return gulp.src(files)
                 .pipe(prettify({
                     js: {
                         maxPreserveNewlines: 0,

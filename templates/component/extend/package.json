@@ -5,7 +5,18 @@
     "description": "{{ description }}",
     "main": "index.js",
     "dependencies": {
-      "{{ extendComponentName }}": "git+ssh://git@gitlab.com:1aim/{{ extendComponentName }}.git"
+<% if(components.length !== 0) { %>
+    <% _.forEach(components, function(component) { %>
+        "{{ component }}": "git+ssh://git@gitlab.com:1aim/{{ component }}.git",
+    <% }); %>
+<% } %>
+
+<% if(mixins.length !== 0) { %>
+    <% _.forEach(mixins, function(mixin) { %>
+        "{{ mixin }}": "git+ssh://git@gitlab.com:1aim/{{ mixin }}.git",
+    <% }); %>
+<% } %>
+        "{{ extendComponentName }}": "git+ssh://git@gitlab.com:1aim/{{ extendComponentName }}.git"
     },
     "author": "Agon Bina <agon_bina@hotmail.com>"
 }

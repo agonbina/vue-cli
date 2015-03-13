@@ -11,7 +11,7 @@ npm install --save {{ name }}
 ### Usage
 ```js
 var Vue = require('vue');
-var {{ name }} = require('{{ name }}');
+var {{ _.camelCase(name) }} = require('{{ name }}');
 
-Vue.use({{ name }})
+Vue.use({{ _.camelCase(name) }})
 ```
