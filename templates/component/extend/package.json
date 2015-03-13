@@ -4,6 +4,9 @@
     "version": "0.1.0",
     "description": "{{ description }}",
     "main": "index.js",
+<% if(author !== '' && email !== '') { %>
+    "author": "{{ author }} <{{ email }}>",
+<% } %>
     "dependencies": {
 <% if(components.length !== 0) { %>
     <% _.forEach(components, function(component) { %>

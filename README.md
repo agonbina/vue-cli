@@ -27,7 +27,7 @@ vue component create ui-alerts --extend ui-notifications
 * **--mixins** or **-m** A comma separated list of mixins this component needs to use. Ex: ```--mixins firebase-mixin,sortable-mixin```
 
 
-## Create a new mixin
+## Create a new mixin(TBD)
 ```bash
 vue mixin create [mixinName|String]
 ```
@@ -41,7 +41,8 @@ You can create a global or local configuration file for your options in your hom
     "email": "youremail@blah.com",
     "git": {
         "username": "username",
-        "remote": "https://github.com/vueui"
+        "host": "gitlab",
+        "organization": "Github"
     }
 }
 ```

@@ -1,6 +1,8 @@
 var Command = require('ronin').Command,
     colors = require('colors'),
-    last = require('101/last')
+    config = require('rc')('vue'),
+    last = require('101/last'),
+    assign = require('101/assign')
 
 
 var path = require('path'),
@@ -43,7 +45,13 @@ var Create = Command.extend({
     run: function (extendComponentName, mixins, components, name) {
         var data = {
                 name: name,
-                description: 'A description for this component'
+                description: 'A description for this component',
+                author: config.author || '',
+                email: config.email || '',
+                git: {
+                    organization: config.git.organization || '',
+                    host: config.git.host || ''
+                }
             },
             templates = []
 
