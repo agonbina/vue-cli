@@ -21,6 +21,15 @@ function resolveTemplate(tpl) {
     return path.join(__dirname, '../../templates', tpl)
 }
 
+function parseInfo(item) {
+    var info = item.split('#')
+
+    return {
+        name: info[0],
+        version: info[1] || ''
+    }
+}
+
 var Create = Command.extend({
 
     desc: 'Create a new component',
@@ -42,7 +51,7 @@ var Create = Command.extend({
         }
     },
 
-    run: function (extendComponentName, mixins, components, name) {
+    run: function (extendComponent, mixins, components, name) {
         var data = {
                 name: name,
                 description: 'A description for this component',
@@ -61,8 +70,8 @@ var Create = Command.extend({
          * If we are extending a component we need some different templates
          */
 
-        if(extendComponentName !== undefined) {
-            data.extendComponentName = extendComponentName
+        if(extendComponent !== undefined) {
+            data.extendComponent = parseInfo(extendComponent)
 
             templates.push(resolveTemplate('/component/extend/**'))
             templates.push(resolveTemplate('/component/*'))
@@ -79,14 +88,7 @@ var Create = Command.extend({
          */
 
         if(mixins) {
-            data.mixins = mixins.split(',').map(function (mixin) {
-                var info = mixin.split('#')
-
-                return {
-                    name: info[0],
-                    version: info[1] || ''
-                }
-            })
+            data.mixins = mixins.split(',').map(parseInfo)
         } else {
             data.mixins = []
         }
@@ -96,14 +98,7 @@ var Create = Command.extend({
          */
 
         if(components) {
-            data.components = components.split(',').map(function (component) {
-                var info = component.split('#')
-
-                return {
-                    name: info[0],
-                    version: info[1] || ''
-                }
-            })
+            data.components = components.split(',').map(parseInfo)
         } else {
             data.components = []
         }

@@ -19,7 +19,7 @@
         "{{ mixin.name }}": "{{ itemGitUrl(mixin, git) }}",
     <% }); %>
 <% } %>
-        "{{ extendComponentName }}": "git+ssh://git@gitlab.com:1aim/{{ extendComponentName }}.git"
+        "{{ extendComponent.name }}": "{{ itemGitUrl(extendComponent, git) }}"
     },
     "author": "Agon Bina <agon_bina@hotmail.com>"
 }

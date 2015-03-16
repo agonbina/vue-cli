@@ -1,4 +1,6 @@
 
+## NOTE: this is still WIP so expect the behavior of specific commands to change
+
 ### Install
 ```
 npm install -g vue-cli
