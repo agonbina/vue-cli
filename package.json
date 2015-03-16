@@ -5,19 +5,23 @@
   "preferGlobal": true,
   "dependencies": {
     "101": "^0.13.0",
+    "asking": "^0.1.2",
     "colors": "^1.0.3",
+    "fs-extra": "^0.16.5",
     "gulp": "^3.8.11",
     "gulp-git": "^1.1.0",
     "gulp-install": "^0.2.0",
     "gulp-jsbeautifier": "0.0.6",
     "gulp-print": "^1.1.0",
     "gulp-rename": "^1.2.0",
+    "gulp-shell": "^0.4.0",
     "gulp-template": "^3.0.0",
     "gulp-util": "^3.0.4",
     "lodash.camelcase": "^3.0.1",
     "prompt": "^0.2.14",
     "rc": "^0.6.0",
-    "ronin": "0.3.x"
+    "ronin": "0.3.x",
+    "semver": "^4.3.1"
   },
   "bin": {
     "vue": "./bin/vue"

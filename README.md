@@ -34,6 +34,14 @@ vue component create ui-alerts --extend ui-notifications
 vue mixin create [mixinName|String]
 ```
 
+## Release a new version of a component, mixin etc
+Note: You must have [git-extras](https://github.com/tj/git-extras) installed for this command to work.
+Using [semver](https://www.npmjs.com/package/semver), the current version will be upgraded based on the ```increment``` you specify.
+
+```bash
+vue release [patch|[minor, major]]
+```
+
 ## Global config
 You can create a global or local configuration file for your options in your home, root or current directory, ex ```~/.vuerc```:
 
