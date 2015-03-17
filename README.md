@@ -7,7 +7,6 @@ npm install -g vue-cli
 ```
 
 ##```vue component```
-
 ### Create a new component
 ```bash
 vue component create [componentName|String]
@@ -42,6 +41,14 @@ Note: You must have [git-extras](https://github.com/tj/git-extras) installed for
 ```bash
 vue release [patch|[minor, major]]
 ```
+
+## ```vue upgrade```
+Check for the latest version of a dependency and choose whether you want to upgrade or not.
+```bash
+vue upgrade [dependencyName|String]
+```
+
+```dependencyName``` must already be in your package.json
 
 ## Global config
 You can create a global or local configuration file for your options in your home, root or current directory, ex ```~/.vuerc```:

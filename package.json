@@ -20,8 +20,11 @@
     "lodash.camelcase": "^3.0.1",
     "prompt": "^0.2.14",
     "rc": "^0.6.0",
+    "request": "^2.53.0",
+    "requestify": "^0.1.17",
     "ronin": "0.3.x",
-    "semver": "^4.3.1"
+    "semver": "^4.3.1",
+    "unirest": "^0.4.0"
   },
   "bin": {
     "vue": "./bin/vue"
