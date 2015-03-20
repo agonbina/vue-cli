@@ -7,17 +7,21 @@
 <% if(author !== '' && email !== '') { %>
     "author": "{{ author }} <{{ email }}>",
 <% } %>
-    "dependencies": {
+    "vue": {
+        "components": [
 <% if(components.length !== 0) { %>
-    <% _.forEach(components, function(component) { %>
-        "{{ component.name }}": "{{ itemGitUrl(component, git) }}",
+    <% _.forEach(components, function(component, index, array) { %>
+        "{{ component.name }}<% if(component.version) { %>#{{ component.version }}<% } %>"<% if(notLast(index, array)) { %> , <% } %>
     <% }); %>
 <% } %>
 
+        ],
+        "mixins": [
 <% if(mixins.length !== 0) { %>
     <% _.forEach(mixins, function(mixin, index, array) { %>
-        "{{ mixin.name }}": "{{ itemGitUrl(mixin, git) }}"<% if(notLast(index, array)) { %> {{ print(',') }} <% } %>
+        "{{ mixin.name }}<% if(mixin.version) { %>#{{ mixin.version }}<% } %>"<% if(notLast(index, array)) { %> , <% } %>
     <% }); %>
 <% } %>
+        ]
     }
 }

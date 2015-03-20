@@ -1,8 +1,7 @@
 var Command = require('ronin').Command,
     colors = require('colors'),
     config = require('rc')('vue'),
-    last = require('101/last'),
-    assign = require('101/assign')
+    last = require('101/last')
 
 
 var path = require('path'),
@@ -11,8 +10,7 @@ var path = require('path'),
     template = require('gulp-template'),
     rename = require('gulp-rename'),
     print = require('gulp-print'),
-    prettify = require('gulp-jsbeautifier'),
-    install = require('gulp-install')
+    prettify = require('gulp-jsbeautifier')
 
 
 // Helpers
@@ -67,23 +65,6 @@ var Create = Command.extend({
         if (!name) throw new Error('A component name must be specified. \n\tvue component create NAME')
 
         /**
-         * If we are extending a component we need some different templates
-         */
-
-        if(extendComponent !== undefined) {
-            data.extendComponent = parseInfo(extendComponent)
-
-            templates.push(resolveTemplate('/component/extend/**'))
-            templates.push(resolveTemplate('/component/*'))
-            templates.push('!' + resolveTemplate('/component/create'))
-        } else {
-            templates.push(resolveTemplate('/component/create/**'))
-            templates.push(resolveTemplate('/component/*'))
-            templates.push('!' + resolveTemplate('/component/extend'))
-        }
-
-
-        /**
          * Mixin dependencies
          */
 
@@ -105,6 +86,25 @@ var Create = Command.extend({
 
 
         /**
+         * If we are extending a component we need some different templates
+         */
+
+        if(extendComponent !== undefined) {
+            data.extendComponent = parseInfo(extendComponent)
+
+            templates.push(resolveTemplate('/component/extend/**'))
+            templates.push(resolveTemplate('/component/*'))
+            templates.push('!' + resolveTemplate('/component/create'))
+
+            data.components.push(data.extendComponent)
+        } else {
+            templates.push(resolveTemplate('/component/create/**'))
+            templates.push(resolveTemplate('/component/*'))
+            templates.push('!' + resolveTemplate('/component/extend'))
+        }
+
+
+        /**
          * Task to copy, interpolate and move the templates to the new directory for this component
          */
 
@@ -113,16 +113,6 @@ var Create = Command.extend({
                 .pipe(template(data, {
                     interpolate: /{{([\s\S]+?)}}/g,
                     imports: {
-                        itemGitUrl: function (item, git) {
-                            var url = 'git+ssh://git@'
-
-                            url += git.host + '.com:' + git.organization + '/'
-                            url += item.name + '.git'
-
-                            if(item.version) url += '#' + item.version
-
-                            return url
-                        },
                         notLast: function(index, array) {
                             return index !== array.length - 1
                         }
@@ -153,14 +143,7 @@ var Create = Command.extend({
                 .pipe(gulp.dest(name))
         })
 
-        gulp.task('all', [ 'prettify' ], function () {
-            var pkgJson = path.join(process.cwd(), name, 'package.json')
-
-            gutil.log(gutil.colors.bold.blue('Installing npm dependencies...'))
-
-            return gulp.src(pkgJson)
-                .pipe(install())
-        })
+        gulp.task('all', [ 'prettify' ])
 
         gulp.start('all')
     }
